@@ -23,11 +23,13 @@ Inside the cell: a bed, table, hidden door under the bed(locked), nightstand(loc
 
 Character: 
 1) player: with no memory, don’t know the reason why he is locked in the cell
-2) person who bring the player food
-3)villagers: who locked the player up in the cell
 
 Brief Background Story: A witch was locked in the cell for a long time, the person who bring her food helped her to escape by taking an unconscious man to the dungeon, which the witch switch body with, so she can leave the cell without anyone notice. However, during the process, villagers noticed and locked her(the player) up again. And she lost memory during the process of switching body.
 
 Flow of the game:
-wake up in the cell ->pour water from the kettle to the cup->key for nightstand in the kettle->cup changes colour when there is a temperature change, so it shows a symbol->open the drawer of the nightstand to obtain a note-> the note tell you how to switch body with another person-> back of the note wrote a girl’s name and a password->a person bring the player food and give another note to the player (short conversation with the person may reveal a little bit of the story)-> the bowl has the symbol on it-> empty the bowl will find a long pin-> the note wrote the position of a specific brick on the wall -> there’s a small hole in the brick-> put the pin in-> the brick falls down and there’s a small locked box behind it-> enter the password to unlock the box->you get the key->unlock the hidden door under the bed and escape
+wake up in the cell ->pour water from the kettle to the cup->key for nightstand in the kettle->cup changes colour when there is a temperature change, so it shows a symbol
+
+->open the drawer of the nightstand to obtain a note and a pin-> the note has a password on it
+
+-> there’s a small hole in the brick with the symbol-> put the pin in-> the brick falls down and there’s a small locked box behind it-> enter the password to unlock the box->you get the key->unlock the hidden door under the bed and escape
 (can be continued/ end with story)
