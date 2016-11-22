@@ -5,10 +5,14 @@ public class Controller : MonoBehaviour {
 	
 	
 	private Vector3 spawnPoint;
+    private enum States { wakeUp, checkedCup, gotKey1, unlockedNightstand, takeOutBrick, gotKey2};
+    private States myStates;
 
 	// Use this for initialization
 	void Start () {
 		spawnPoint = transform.position;
+        myStates = States.wakeUp;
+
 
 	}
 
@@ -30,10 +34,14 @@ public class Controller : MonoBehaviour {
     //    }
     //}
 
-    // Update is called once per frame, walk when swipe forward
+    // Update is called once per fram 
     void Update()
     {
-        if(Input.GetAxis("Mouse X") < 0)
+        Vector3 fwd = transform.TransformDirection(Vector3.forward);
+
+        //if (Physics.Raycast(transform.position, fwd, 10) && Input.GetButtonUp("Tap")) //pick up object when raycast hit obj and tap
+       // { }
+        if (Input.GetAxis("Mouse X") < 0) //walk when swipe forward
         {
             transform.position = transform.position + Camera.main.transform.forward * 2f * Time.deltaTime;
         }
@@ -41,6 +49,7 @@ public class Controller : MonoBehaviour {
         {
             transform.position = spawnPoint;
         }
+
       
     }
 }
