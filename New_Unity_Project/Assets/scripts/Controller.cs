@@ -7,10 +7,12 @@ public class Controller : MonoBehaviour {
 	private Vector3 spawnPoint;
     private enum States { wakeUp, checkedCup, gotKey1, unlockedNightstand, takeOutBrick, gotKey2};
     private States myStates;
+    
+    
 
 	// Use this for initialization
 	void Start () {
-		spawnPoint = transform.position;
+        spawnPoint = transform.position;
         myStates = States.wakeUp;
 
 
@@ -39,8 +41,6 @@ public class Controller : MonoBehaviour {
     {
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
 
-        //if (Physics.Raycast(transform.position, fwd, 10) && Input.GetButtonUp("Tap")) //pick up object when raycast hit obj and tap
-       // { }
         if (Input.GetAxis("Mouse X") < 0) //walk when swipe forward
         {
             transform.position = transform.position + Camera.main.transform.forward * 2f * Time.deltaTime;
@@ -50,6 +50,39 @@ public class Controller : MonoBehaviour {
             transform.position = spawnPoint;
         }
 
-      
+        if (Physics.Raycast(transform.position, fwd, 10) && Input.GetButtonUp("Tap")) //pick up object when raycast hit obj and tap
+        {
+            GrabObj(TapObj(10));
+            // Debug.Log(TapObj(10));
+        }
+
+
+    }
+
+    GameObject TapObj(float range) {
+        Vector3 position = gameObject.transform.position;
+        RaycastHit raycastHit;
+        Vector3 target = position + Camera.main.transform.forward * range;
+        if (Physics.Linecast(position, target, out raycastHit))
+        {
+            return raycastHit.collider.gameObject;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    void GrabObj(GameObject obj)
+    {
+        if (obj == null)
+            return;
+        if(obj )          //if obj can be picked up, then disappear when pick up
+            Destroy(obj);
+    }
+
+    void DropObj(GameObject obj)
+    {
+        UnityEditor.Undo.DestroyObjectImmediate(obj);
     }
 }
