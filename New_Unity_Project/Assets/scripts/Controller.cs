@@ -2,21 +2,21 @@
 using System.Collections;
 
 public class Controller : MonoBehaviour {
-	
-	
-	private Vector3 spawnPoint;
-    private enum States { wakeUp, checkedCup, gotKey1, unlockedNightstand, takeOutBrick, gotKey2};
-    private States myStates;
-    
-    
 
-	// Use this for initialization
-	void Start () {
+
+    private Vector3 spawnPoint;
+    private enum States { wakeUp, checkedCup, gotKey1, unlockedNightstand, takeOutBrick, gotKey2 };
+    private States myStates;
+    RaycastHit whatIHit;
+
+
+    // Use this for initialization
+    void Start() {
         spawnPoint = transform.position;
         myStates = States.wakeUp;
 
 
-	}
+    }
 
     // Update is called once per frame, walk when tap, stop when tap ends
     //void Update()
@@ -50,39 +50,25 @@ public class Controller : MonoBehaviour {
             transform.position = spawnPoint;
         }
 
-        if (Physics.Raycast(transform.position, fwd, 10) && Input.GetButtonUp("Tap")) //pick up object when raycast hit obj and tap
+        if (Physics.Raycast(transform.position, fwd, out whatIHit, 10) && Input.GetButtonUp("Tap")) //pick up object when raycast hit obj and tap
         {
-            GrabObj(TapObj(10));
-            // Debug.Log(TapObj(10));
+            Debug.Log("I picked up a" +whatIHit.collider.gameObject.name);
+            if(whatIHit.collider.tag == "Objects") {
+                if (whatIHit.collider.gameObject.GetComponent<Objects>().whatObj == Objects.objects.cup)
+                {
+                    PickUpCup();
+                }
+            }
+            
         }
 
 
     }
 
-    GameObject TapObj(float range) {
-        Vector3 position = gameObject.transform.position;
-        RaycastHit raycastHit;
-        Vector3 target = position + Camera.main.transform.forward * range;
-        if (Physics.Linecast(position, target, out raycastHit))
-        {
-            return raycastHit.collider.gameObject;
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    void GrabObj(GameObject obj)
+    void PickUpCup()
     {
-        if (obj == null)
-            return;
-        if(obj )          //if obj can be picked up, then disappear when pick up
-            Destroy(obj);
+       //set cup pick up and show text to tell player
+        Destroy(whatIHit.collider.gameObject); //make cup disappear when pick up
     }
-
-    void DropObj(GameObject obj)
-    {
-        UnityEditor.Undo.DestroyObjectImmediate(obj);
-    }
+    
 }
