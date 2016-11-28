@@ -11,20 +11,6 @@ using System.Collections;
     };
 
     public objects whatObj;
-   
-    
-
-
-	// Use this for initialization
-	void Start () {
-       
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        	
-	}
-
     
 
 }

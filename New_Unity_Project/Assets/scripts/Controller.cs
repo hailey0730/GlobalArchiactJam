@@ -5,16 +5,13 @@ public class Controller : MonoBehaviour {
 
 
     private Vector3 spawnPoint;
-    private enum States { wakeUp, checkedCup, gotKey1, unlockedNightstand, takeOutBrick, gotKey2 };
-    private States myStates;
     RaycastHit whatIHit;
-
+    public GameObject player;
 
     // Use this for initialization
     void Start() {
         spawnPoint = transform.position;
-        myStates = States.wakeUp;
-
+        player = GameObject.FindWithTag("Player");
 
     }
 
@@ -58,8 +55,22 @@ public class Controller : MonoBehaviour {
                 {
                     PickUpCup();
                 }
+                if (whatIHit.collider.gameObject.GetComponent<Objects>().whatObj == Objects.objects.kettle)
+                {
+                   EmptyKettle();
+                }
+                if (whatIHit.collider.gameObject.GetComponent<Objects>().whatObj == Objects.objects.key1)
+                {
+                    GetKey1();
+                }
+                if (whatIHit.collider.gameObject.GetComponent<Objects>().whatObj == Objects.objects.nightstand)
+                {
+                    UnlockNightstand();
+                }
+
             }
             
+
         }
 
 
@@ -67,8 +78,46 @@ public class Controller : MonoBehaviour {
 
     void PickUpCup()
     {
-       //set cup pick up and show text to tell player
+        Debug.Log("pickUpCup");
+        player.GetComponent<Inventory>().hasCup = true; //set cup pick up 
+                                                //show text to tell player
         Destroy(whatIHit.collider.gameObject); //make cup disappear when pick up
     }
-    
+
+    void EmptyKettle()
+    {
+        Debug.Log("emptyKettle");
+        if (player.GetComponent<Inventory>().hasCup)
+        {
+            player.GetComponent<Inventory>().emptyKettle = true; //set kettle empty
+            //show text to tell player
+            Destroy(whatIHit.collider.gameObject.gameObject); //make kettle disappear and show key1 underneath or in it
+        }
+        else
+        {
+            //show text tell player there is water in the kettle
+        }
+    }
+    void GetKey1()
+    {
+        Debug.Log("getKey1");
+        if (player.GetComponent<Inventory>().emptyKettle)
+        {
+            player.GetComponent<Inventory>().hasKey1 = true; //set has key1
+            //show text
+            Destroy(whatIHit.collider.gameObject.gameObject); //make kettle disappear and show key1 underneath or in it
+        }
+    }
+    void UnlockNightstand() {
+        Debug.Log("unlockNightstand");
+        if (player.GetComponent<Inventory>().hasKey1)
+        {
+            player.GetComponent<Inventory>().unlockNighstand = true; //set nightstand unlocked
+            //show text
+
+        }else
+        {
+            //show text the nightstand is locked
+        }
+    }
 }
